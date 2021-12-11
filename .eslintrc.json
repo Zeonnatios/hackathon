@@ -1,4 +1,10 @@
 {  
   "root": true,
-  "extends": "trybe-frontend"
+  "extends": "trybe-frontend",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "sourceType": "module"
+  }
 }
