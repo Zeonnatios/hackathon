@@ -9,14 +9,14 @@ import {
 } from 'redux-saga/effects';
 
 import { constants } from '../modules/auth';
-import * as api from '../api/auth';
+import api from '../api/auth';
 // eslint-disable-next-line
 import { persistor } from '../store';
 
 // LOGIN
 function* login(action) {
   try {
-    const payload = yield call(api, action);
+    const { data: payload } = yield call(api, action);
     yield put({ type: constants.AUTH_LOGIN.SUCCESS, payload });
 
     // eslint-disable-next-line
@@ -27,7 +27,7 @@ function* login(action) {
       message: e.message || e,
     });
     notification.error({
-      message: 'Problemas no Login: usuário ou senha inválidos',
+      message: "Email ou senha inválidos",
     });
 
     // eslint-disable-next-line

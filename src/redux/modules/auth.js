@@ -17,11 +17,10 @@ export const actions = {
   logout: () => ({
     type: constants.AUTH_LOGOUT,
   }),
-  login: (email, password, remember, success, error) => ({
+  login: (email, password, success, error) => ({
     type: constants.AUTH_LOGIN.ACTION,
     email,
     password,
-    remember,
     success,
     error,
   }),
@@ -63,11 +62,11 @@ const ACTION_HANDLERS = {
   }),
 
   [constants.AUTH_LOGIN.SUCCESS]: (state, action) => {
-    const { token, email, id, name } = action.payload;
+    const { user, token } = action.payload;
     return {
       ...state,
       token,
-      user: { email, id, name, foto },
+      user,
       isLoading: false,
     };
   },
