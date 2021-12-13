@@ -1,7 +1,7 @@
 import axios from '../../utils/index';
 
-export default async function login({ email, password, token }) {
-  const values = await axios(token).post('/login/', {
+export default async function login({ email, password }) {
+  const values = await axios().post('/login/', {
     email,
     password,
   });

@@ -6,7 +6,6 @@ import AuthRoutes from './Auth.routes';
 
 function Router() {
   const auth = useSelector((state) => state.auth);
-  console.log(auth);
   return (
     <BrowserRouter>{auth.token ? <AppRoutes /> : <AuthRoutes />}</BrowserRouter>
   );
