@@ -24,10 +24,10 @@ function* login(action) {
   } catch (e) {
     yield put({
       type: constants.AUTH_LOGIN.FAILED,
-      message: e.message || e,
+      message: e.response.data.message,
     });
     notification.error({
-      message: "Email ou senha inválidos",
+      message: e.response.data.message,
     });
 
     // eslint-disable-next-line

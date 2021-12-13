@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import Principal from '../pages/Principal';
 
 function Router() {
@@ -10,6 +10,7 @@ function Router() {
       <Route path="/cadastro" />
       <Route path="/trilhas" />
       <Route path="/trilhas/:id" />
+      <Route path="/*" element={ <Navigate to="/" /> } />
     </Routes>
   );
 }
