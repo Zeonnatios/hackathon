@@ -16,6 +16,7 @@ function Login() {
 
   useEffect(() => {
     const from = location.state?.from?.pathname || '/';
+    console.log(from);
     if (auth.token) {
       navigate(from);
     }
@@ -50,7 +51,8 @@ function Login() {
                   <Form.Item
                     validateStatus={ errors.email && touched.email ? 'error' : '' }
                     help={ errors.email }
-                    label="Email"
+                    label="E-mail"
+                    labelCol={ { span: 24 } }
                   >
                     <Input
                       name="email"
@@ -63,12 +65,14 @@ function Login() {
                     validateStatus={ errors.password
                       && touched.password ? 'error' : '' }
                     help={ errors.password }
-                    label="Password"
+                    label="Senha"
+                    labelCol={ { span: 24 } }
                   >
                     <Input.Password
                       name="password"
                       value={ values.password }
                       onChange={ handleChange }
+                      size="large"
                     />
                   </Form.Item>
                   <Button
