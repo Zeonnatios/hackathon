@@ -14,7 +14,7 @@ function MainLayout({ children }) {
       </Content>
       <Footer>
         <FooterText>
-          Feito com React, Redux, Styled-Components e 💗
+          Feito com React, Redux, Ant Design, Styled-Components e 💗
         </FooterText>
       </Footer>
     </Layout>
