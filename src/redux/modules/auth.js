@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import { REHYDRATE } from 'redux-persist/lib/constants';
-import * as Sentry from '@sentry/react';
 
 import { createSagaAction, createReducer } from '../utils';
 
@@ -8,6 +7,7 @@ import { createSagaAction, createReducer } from '../utils';
 export const constants = {
   AUTH_LOGOUT: 'AUTH_LOGOUT',
   AUTH_LOGIN: createSagaAction('AUTH_LOGIN'),
+  AUTH_SIGNIN: createSagaAction('AUTH_SIGNIN'),
 };
 
 // ------------------------------------
@@ -19,6 +19,14 @@ export const actions = {
   }),
   login: (email, password, success, error) => ({
     type: constants.AUTH_LOGIN.ACTION,
+    email,
+    password,
+    success,
+    error,
+  }),
+  sigin: (name, email, password, success, error) => ({
+    type: constants.AUTH_SIGNIN.ACTION,
+    name,
     email,
     password,
     success,
@@ -41,9 +49,6 @@ const ACTION_HANDLERS = {
   [REHYDRATE]: (state, action) => {
     // const persisted = action.payload ? action.payload.a : {}
     const persisted = _.get(action, 'payload.auth', {});
-    if (persisted != null && persisted.user != null) {
-      Sentry.setUser({ email: persisted.user.email });
-    }
     return {
       ...state,
       user: persisted.user || initialState.user,
@@ -73,6 +78,30 @@ const ACTION_HANDLERS = {
 
   // AUTH_LOGIN.FAILED
   [constants.AUTH_LOGIN.FAILED]: (state, action) => ({
+    ...state,
+    error: action.message,
+    isLoading: false,
+  }),
+
+  // AUTH_SIGNIN.ACTION
+  [constants.AUTH_SIGNIN.ACTION]: (state) => ({
+    ...state,
+    error: null,
+    isLoading: true,
+  }),
+
+  [constants.AUTH_SIGNIN.SUCCESS]: (state, action) => {
+    const { user, token } = action.payload;
+    return {
+      ...state,
+      token,
+      user,
+      isLoading: false,
+    };
+  },
+
+  // AUTH_SIGNIN.FAILED
+  [constants.AUTH_SIGNIN.FAILED]: (state, action) => ({
     ...state,
     error: action.message,
     isLoading: false,
