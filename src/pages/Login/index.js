@@ -16,7 +16,6 @@ function Login() {
 
   useEffect(() => {
     const from = location.state?.from?.pathname || '/';
-    console.log(from);
     if (auth.token) {
       navigate(from);
     }
@@ -51,7 +50,7 @@ function Login() {
                   <Form.Item
                     validateStatus={ errors.email && touched.email ? 'error' : '' }
                     help={ errors.email }
-                    label="E-mail"
+                    label="Email"
                     labelCol={ { span: 24 } }
                   >
                     <Input
