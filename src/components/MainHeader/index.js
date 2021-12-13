@@ -2,9 +2,16 @@ import React from 'react';
 import { Layout, Menu } from 'antd';
 import { useNavigate } from 'react-router';
 import { Logo } from './styles';
+import { useDispatch } from 'react-redux';
+import { actions } from '../../redux/modules/auth';
 
 function MainHeader() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const signout = () => {
+    dispatch(actions.logout());
+    navigate('/login');
+  };
   return (
     <Layout.Header>
       <Logo />
@@ -17,6 +24,9 @@ function MainHeader() {
         </Menu.Item>
         <Menu.Item key="3" onClick={ () => navigate('/perfil') }>
           Perfil
+        </Menu.Item>
+        <Menu.Item key="4" onClick={ () => signout() }>
+          Sair
         </Menu.Item>
       </Menu>
     </Layout.Header>
