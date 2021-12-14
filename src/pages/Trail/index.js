@@ -37,7 +37,7 @@ function Trail() {
       </TrailHeader>
 
       <Collapse defaultActiveKey={['1']} style={{ marginBottom: '10px' }}>
-        <Collapse.Panel header="Trilhas criadas por mim" key="1">
+        <Collapse.Panel header="Steps" key="1">
           <StepContainer>
             {trails?.currentTrail?.steps?.length > 0 ? (
               trails?.currentTrail?.steps?.map((step, index) => {
