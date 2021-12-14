@@ -37,7 +37,7 @@ function Principal() {
               {
                 trails.allTrails.length > 0 ? 
                   trails.allTrails.map((trail) => {
-                    const image = Icons.find(({ name }) => name === trail.technologies[0].tech)
+                    const image = Icons.find(({ name }) => name === trail?.technologies[0]?.tech)
                     return (
                       <TrailCard
                         key={trail._id}
@@ -47,7 +47,7 @@ function Principal() {
                         description={trail.description}
                         userName={trail.userName}
                         likes={trail.likes}
-                        icon={image.icon}
+                        icon={image?.icon || false}
                       />
                     );
                   })
@@ -55,7 +55,6 @@ function Principal() {
                   <Empty />
                 )
               }
-              {}
             </TrailsContainer>
           </Col>
         </Row>

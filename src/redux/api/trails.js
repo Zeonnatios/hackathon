@@ -1,20 +1,42 @@
 import axios from '../../utils/index';
 
-export function allTrails() {
-  const values = axios().get('/home');
+export async function allTrails() {
+  const values = await axios().get('/home');
 
   return values;
 }
 
-export function allTechnologies() {
-  const values = axios().get('/technologies');
+export async function allTechnologies() {
+  const values = await axios().get('/technologies');
 
   return values;
 }
 
-export function trailsByTechnology(technology) {
-  console.log(technology);
-  const values = axios().get(`/trails/${technology}`);
+export async function trailsByTechnology(technology) {
+  const values = await axios().get(`/trails/tech/${technology}`);
+
+  return values;
+}
+
+export async function myTrails({ userId }) {
+  const values = await axios().get(`/users/trails/${userId}`);
+
+  return values;
+}
+
+export async function getTrailById({ trailId }) {
+  const values = await axios().get(`/trails/${trailId}`);
+
+  return values;
+}
+
+export async function createTrail({ title, description, technologies }, userName) {
+  const values = await axios().post('/trails', {
+    description,
+    technologies,
+    title,
+    userName,
+  });
 
   return values;
 }

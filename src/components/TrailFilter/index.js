@@ -20,7 +20,7 @@ function TrailFilter({ technologies, isLoading }) {
       {({ values, setFieldValue, handleReset, handleSubmit }) => (
         <Form onFinish={handleSubmit} layout="vertical">
           <Row gutter={16}>
-            <Col sm={24} lg={8}>
+            <Col span={24} lg={8}>
               <Form.Item label="Tecnologia">
                 <Select
                   name="technology"
@@ -28,6 +28,7 @@ function TrailFilter({ technologies, isLoading }) {
                   onChange={(e) => setFieldValue('technology', e)}
                   loading={isLoading}
                   disabled={isLoading}
+                  size="large"
                 >
                   {technologies.map((technology) => (
                     <Select.Option value={technology._id}>

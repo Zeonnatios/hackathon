@@ -22,9 +22,6 @@ function MainHeader() {
         <Menu.Item key="2" onClick={ () => navigate('/trilhas') }>
           Minhas Trilhas
         </Menu.Item>
-        <Menu.Item key="3" onClick={ () => navigate('/perfil') }>
-          Perfil
-        </Menu.Item>
         <Menu.Item key="4" onClick={ () => signout() }>
           Sair
         </Menu.Item>

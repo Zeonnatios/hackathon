@@ -6,6 +6,7 @@ export const Container = styled(Card)`
   min-width: 350px;
   max-width: 350px;
   margin-bottom: 25px;
+  margin-right: 10px;
 `;
 
 export const CardData = styled(Card.Meta)``;

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Skeleton } from 'antd';
-import Icon from '@ant-design/icons';
 import {
   CardData,
   Container,
@@ -12,6 +11,7 @@ import {
   CardFooter,
   CardDescription,
 } from './styles';
+import { useNavigate } from 'react-router-dom'
 
 
 function TrailCard({
@@ -23,6 +23,7 @@ function TrailCard({
   loading,
   icon,
 }) {
+  const navigate = useNavigate();
   const renderDescription = () => (
     <CardBody>
       <CardDescription>
@@ -36,7 +37,7 @@ function TrailCard({
   );
 
   return (
-    <Container onClick={() => console.log(_id)} hoverable>
+    <Container onClick={() => navigate(`/trilhas/${_id}`)} hoverable>
       <Skeleton loading={loading} active avatar>
         <CardData
           title={title}

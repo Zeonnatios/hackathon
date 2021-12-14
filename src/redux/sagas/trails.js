@@ -1,5 +1,5 @@
 import { notification } from 'antd';
-import { all, fork, call, put, takeEvery } from 'redux-saga/effects';
+import { all, fork, call, put, takeEvery, select } from 'redux-saga/effects';
 
 import { constants } from '../modules/trails';
 import * as api from '../api/trails';
@@ -55,6 +55,52 @@ function* getAllTechnologies() {
   }
 }
 
+function* getMyTrails(action) {
+  try {
+    const payload = yield call(api.myTrails, action);
+    yield put({ type: constants.GET_MY_TRAILS.SUCCESS, payload: payload.data });
+  } catch (e) {
+    yield put({
+      type: constants.GET_MY_TRAILS.FAILED,
+      message: e?.response?.data?.message,
+    });
+    notification.error({
+      message: e.response.data.message,
+    });
+  }
+}
+
+function* createTrail(action) {
+  try {
+    const { user } = yield select((state) => state.auth);
+    const payload = yield call(api.createTrail, action, user.name);
+    yield put({ type: constants.CREATE_TRAIL.SUCCESS, payload: payload?.data });
+  } catch (e) {
+    yield put({
+      type: constants.CREATE_TRAIL.FAILED,
+      message: e.response?.data?.message,
+    });
+    notification.error({
+      message: e.response?.data?.message,
+    });
+  }
+}
+
+function* getTrailById(action) {
+  try {
+    const payload = yield call(api.getTrailById, action);
+    yield put({ type: constants.GET_TRAIL_BY_ID.SUCCESS, payload: payload?.data });
+  } catch (e) {
+    yield put({
+      type: constants.GET_TRAIL_BY_ID.FAILED,
+      message: e.response?.data?.message,
+    });
+    notification.error({
+      message: e.response?.data?.message,
+    });
+  }
+}
+
 // Watchers Sagas
 
 function* watchGetAllTrails() {
@@ -72,6 +118,17 @@ function* watchGetAllTechnologies() {
   yield takeEvery(constants.GET_ALL_TECHNOLOGIES.ACTION, getAllTechnologies);
 }
 
+function* watchGetMyTrails() {
+  yield takeEvery(constants.GET_MY_TRAILS.ACTION, getMyTrails);
+}
+
+function* watchCreateTrail() {
+  yield takeEvery(constants.CREATE_TRAIL.ACTION, createTrail);
+}
+
+function* watchGetTrailsById() {
+  yield takeEvery(constants.GET_TRAIL_BY_ID.ACTION, getTrailById);
+}
 /**
  * Export the root saga by forking all available sagas.
  */
@@ -80,5 +137,8 @@ export default function* rootAuth() {
     fork(watchGetAllTrails),
     fork(watchGetAllTechnologies),
     fork(watchGetTrailsByTechnology),
+    fork(watchGetMyTrails),
+    fork(watchCreateTrail),
+    fork(watchGetTrailsById),
   ]);
 }
